@@ -110,10 +110,7 @@ cat('The original dataset contains', dirty_rows, 'rows with missing values or', 
 ```
 
 #### Devise a strategy for filling in all of the missing values in the dataset. 
-#### The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, 
-#### or the mean for that 5-minute interval, etc.
-#### Create a new dataset that is equal to the original dataset but with the missing data filled in.
-
+#### Setting the missing values to the average steps for that interval
 
 ```r
 corrected <- sd
@@ -122,7 +119,7 @@ for(i in 1:nrow(corrected)) {
   row <- corrected[i,]
   
   if (is.na(row$steps)) {
-    row$steps <- steps_by_period[steps_by_period$Interval == 2330,]$`Average Steps`
+    row$steps <- steps_by_period[steps_by_period$Interval == row$interval,]$`Average Steps`
     corrected[i,] <- row
   }
 }
@@ -158,7 +155,7 @@ cat('Average steps per day:', c_steps_mean, '\n')
 ```
 
 ```
-## Average steps per day: 9452.575
+## Average steps per day: 10766.19
 ```
 
 ```r
@@ -167,7 +164,7 @@ cat('Median steps per day:', c_steps_median, '\n')
 ```
 
 ```
-## Median steps per day: 10395
+## Median steps per day: 10766.19
 ```
 
 #### Do these values differ from the estimates from the first part of the assignment?
@@ -185,7 +182,7 @@ cat('Corrected Data Mean Steps:', c_steps_mean)
 ```
 
 ```
-## Corrected Data Mean Steps: 9452.575
+## Corrected Data Mean Steps: 10766.19
 ```
 
 ```r
@@ -201,7 +198,7 @@ cat('Corrected Data Median Steps:', c_steps_median)
 ```
 
 ```
-## Corrected Data Median Steps: 10395
+## Corrected Data Median Steps: 10766.19
 ```
 
 #### What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -211,7 +208,7 @@ cat('By inferring missing values, the mean decreased by', steps_mean - c_steps_m
 ```
 
 ```
-## By inferring missing values, the mean decreased by 1313.613 steps
+## By inferring missing values, the mean decreased by 0 steps
 ```
 
 ```r
@@ -219,7 +216,7 @@ cat('By inferring missing values, the median decreased by', steps_median - c_ste
 ```
 
 ```
-## By inferring missing values, the median decreased by 370 steps
+## By inferring missing values, the median decreased by -1.188679 steps
 ```
 
 ### Step 5: Are there differences in activity patterns between weekdays and weekends?

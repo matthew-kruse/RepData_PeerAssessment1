@@ -86,10 +86,7 @@ cat('The original dataset contains', dirty_rows, 'rows with missing values or', 
 ```
 
 #### Devise a strategy for filling in all of the missing values in the dataset. 
-#### The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, 
-#### or the mean for that 5-minute interval, etc.
-#### Create a new dataset that is equal to the original dataset but with the missing data filled in.
-
+#### Setting the missing values to the average steps for that interval
 ```{r corrected}
 corrected <- sd
 
@@ -97,7 +94,7 @@ for(i in 1:nrow(corrected)) {
   row <- corrected[i,]
   
   if (is.na(row$steps)) {
-    row$steps <- steps_by_period[steps_by_period$Interval == 2330,]$`Average Steps`
+    row$steps <- steps_by_period[steps_by_period$Interval == row$interval,]$`Average Steps`
     corrected[i,] <- row
   }
 }

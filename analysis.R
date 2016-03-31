@@ -66,7 +66,7 @@ for(i in 1:nrow(corrected)) {
   row <- corrected[i,]
   
   if (is.na(row$steps)) {
-    row$steps <- steps_by_period[steps_by_period$Interval == 2330,]$`Average Steps`
+    row$steps <- steps_by_period[steps_by_period$Interval == row$interval,]$`Average Steps`
     corrected[i,] <- row
   }
 }
